@@ -1,0 +1,35 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Didact Gothic';
+  width: 100%;
+  background-color: rgb(10, 7, 54);
+  color: antiquewhite;
+}
+
+li {
+  float: left;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li:hover {
+  background-color: antiquewhite;
+  color: rgb(10, 7, 54);
+}
+
+.logo {
+  margin: auto;
+  width: 20em;
+  align-self: center;
+  float: left;
+}
+
+.logout-nav {
+  float: right;
+}
