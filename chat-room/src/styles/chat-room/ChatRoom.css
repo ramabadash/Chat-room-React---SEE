@@ -1,0 +1,23 @@
+.chat-room {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  background-color: rgba(221, 209, 194, 0.4);
+  border-radius: 0.5em;
+  width: 80%;
+  height: 30em;
+  margin: 10% auto;
+}
+
+.messages-list {
+  grid-area: 2 / 2 / 6 / 4;
+  background-image: url('https://thumbs.dreamstime.com/b/mobile-apps-pattern-white-background-50171276.jpg');
+}
+.message-input {
+  grid-area: 6 / 2 / 7 / 4;
+}
+.members-list {
+  grid-area: 2 / 4 / 7 / 5;
+}
