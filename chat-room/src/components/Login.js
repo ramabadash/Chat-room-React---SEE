@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Login.css';
 
 export default function Login() {
@@ -22,7 +23,9 @@ export default function Login() {
         </span>
         <input id='password' type='password' placeholder='Password'></input> {/* TODO ADD CONDITIONS */}
       </div>
-      <button id='login-btn'>LOGIN!</button>
+      <Link to={'/home'}>
+        <button id='login-btn'>LOGIN!</button>
+      </Link>
       <hr />
       <span>Not a member? create account!</span>
     </div>
