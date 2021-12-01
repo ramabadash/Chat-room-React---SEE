@@ -1,0 +1,29 @@
+.send-message {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: auto;
+}
+
+.message-input {
+  font-size: 1em;
+  width: 10em;
+  margin: 1em auto;
+  padding: 0.25em;
+  height: 1em;
+  border-radius: 0.5em;
+  border-color: #222;
+  color: #222;
+  /* background-color: antiquewhite; */
+  font-family: 'Didact Gothic';
+}
+
+.send-btn {
+  margin: 1em auto;
+  padding: 0.25em;
+  border-radius: 0.5em;
+  background-color: #222;
+  color: antiquewhite;
+  cursor: pointer;
+  font-family: 'Didact Gothic';
+}

@@ -9,6 +9,7 @@
   width: 80%;
   height: 30em;
   margin: 10% auto;
+  padding: 0;
 }
 
 .messages-list {
@@ -17,6 +18,8 @@
 }
 .message-input {
   grid-area: 6 / 2 / 7 / 4;
+  margin: auto;
+  padding: 0.25em;
 }
 .members-list {
   grid-area: 2 / 4 / 7 / 5;

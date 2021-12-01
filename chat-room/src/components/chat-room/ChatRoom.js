@@ -2,6 +2,7 @@ import React from 'react';
 import '../../styles/chat-room/NavBar.css';
 import '../../styles/chat-room/ChatRoom.css';
 import logo from '../../images/logo.png';
+import MessageInput from './MessageInput';
 
 export default function ChatRoom() {
   return (
@@ -24,8 +25,7 @@ export default function ChatRoom() {
           <div>message</div> {/* TODO - MESSAGE COMPONENT */}
         </div>
         <div className='message-input'>
-          {/* MESSAGE INPUT - TODO- ADD COMPONENT */}
-          <input type='text' /> <button>send</button>
+          <MessageInput />
         </div>
         <div className='members-list'>
           {/* MEMBERS LIST - TODO- ADD COMPONENT */}
