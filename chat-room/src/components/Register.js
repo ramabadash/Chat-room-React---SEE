@@ -5,12 +5,12 @@ import '../styles/Login.css';
 export default function Register() {
   return (
     <div className='login-form'>
-      <h2>Register:</h2>
       <img
         className='login-img'
         alt='general-user'
         src='https://www.jing.fm/clipimg/full/297-2976720_avatar-for-login-page.png'
       />
+      <h2>Register:</h2>
       <div>
         <span className='icon-span'>
           <i className='far fa-user'></i>

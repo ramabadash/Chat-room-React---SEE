@@ -7,8 +7,8 @@
   background-color: rgba(221, 209, 194, 0.4);
   border-radius: 0.5em;
   width: 80%;
-  height: 30em;
-  margin: 10% auto;
+  height: 60em;
+  margin: auto;
   padding: 0;
 }
 
@@ -30,4 +30,20 @@
 .members-list {
   grid-area: 1 / 4 / 6 / 6;
   /* overflow-y: auto; */
+}
+
+@media screen and (max-width: 992px) {
+  .chat-room {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: rgba(221, 209, 194, 0.4);
+    border-radius: 0.5em;
+    width: 80%;
+    height: 30em;
+    margin: auto;
+    padding: 0;
+  }
 }
