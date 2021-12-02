@@ -3,6 +3,7 @@ import '../../styles/chat-room/NavBar.css';
 import '../../styles/chat-room/ChatRoom.css';
 import logo from '../../images/logo.png';
 import MessageInput from './MessageInput';
+import MessagesList from './MessagesList';
 
 export default function ChatRoom() {
   return (
@@ -19,10 +20,7 @@ export default function ChatRoom() {
       {/* GENERAL SCREEN */}
       <div className='chat-room'>
         <div className='messages-list'>
-          {/* MESSAGES LIST - TODO- ADD COMPONENT */}
-          <div>message</div> {/* TODO - MESSAGE COMPONENT */}
-          <div>message</div> {/* TODO - MESSAGE COMPONENT */}
-          <div>message</div> {/* TODO - MESSAGE COMPONENT */}
+          <MessagesList />
         </div>
         <div className='message-input'>
           <MessageInput />
