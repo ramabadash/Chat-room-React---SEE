@@ -2,11 +2,11 @@
   "name": "chat-room",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -19,6 +19,7 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
+  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "react-scripts start",
     "dev": "nodemon ./server/server.js",

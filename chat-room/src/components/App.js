@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './Login.js';
 import ChatRoom from './chat-room/ChatRoom.js';
 import Register from './Register.js';
+export const BASEURL = 'http://localhost:8080';
 
 export default function App() {
   return (
