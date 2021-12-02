@@ -9,7 +9,7 @@ export default function ChatRoom() {
   return (
     <div>
       {/* NAV BAR - TODO NAVBAR COMPONENT */}
-      <ul>
+      <ul className='nav-bar'>
         <li>
           <img className='logo' alt='logo' src={logo} />
         </li>

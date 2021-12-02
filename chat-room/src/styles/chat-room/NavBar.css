@@ -1,4 +1,4 @@
-ul {
+.nav-bar {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -9,7 +9,7 @@ ul {
   color: antiquewhite;
 }
 
-li {
+.nav-bar li {
   float: left;
   cursor: pointer;
   display: block;
@@ -18,7 +18,7 @@ li {
   text-decoration: none;
 }
 
-li:hover {
+.nav-bar li:hover {
   background-color: antiquewhite;
   color: rgb(10, 7, 54);
 }
