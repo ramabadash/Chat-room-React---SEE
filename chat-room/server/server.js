@@ -6,6 +6,8 @@ const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 8080;
 
+const usersRouter = require('./routers/usersRouter.js');
+
 /***** DB *****/
 const MONGO_URI = process.env.MONGO_URI;
 mongoose
@@ -24,5 +26,6 @@ app.use(express.json());
 app.use(cors());
 
 /***** ROUTERS *****/
+app.use('/users', usersRouter); // Register, Login, Logout
 
 app.listen(PORT, () => console.log(`app listening at http://localhost:${PORT}`));
