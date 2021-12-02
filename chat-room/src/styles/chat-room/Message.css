@@ -1,0 +1,73 @@
+#chat {
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+  overflow-y: auto;
+  height: 100%;
+}
+#chat li {
+  padding: 0.75em 2em;
+}
+#chat h2,
+#chat h3 {
+  display: inline-block;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+#chat h3 {
+  color: brown;
+}
+#chat .entete {
+  margin-bottom: 5px;
+}
+#chat .message {
+  padding: 0.75em;
+  color: #fff;
+  line-height: 25px;
+  max-width: 90%;
+  display: inline-block;
+  text-align: left;
+  border-radius: 5px;
+}
+#chat .me {
+  text-align: right;
+}
+#chat .you .message {
+  background-color: #58b666;
+}
+#chat .me .message {
+  background-color: #6fbced;
+}
+
+.status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 7px;
+}
+.green {
+  background-color: #58b666;
+}
+.orange {
+  background-color: #ff725d;
+}
+.blue {
+  background-color: #6fbced;
+  margin-right: 0;
+  margin-left: 7px;
+}
+/* #chat .triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+}
+#chat .you .triangle {
+  border-color: transparent transparent #58b666 transparent;
+  margin-left: 15px;
+}
+#chat .me .triangle {
+  border-color: transparent transparent #6fbced transparent;
+  margin-left: 375px;
+} */

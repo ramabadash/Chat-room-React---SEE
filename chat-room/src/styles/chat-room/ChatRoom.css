@@ -14,7 +14,12 @@
 
 .messages-list {
   grid-area: 1 / 1 / 6 / 4;
-  background-image: url('https://thumbs.dreamstime.com/b/mobile-apps-pattern-white-background-50171276.jpg');
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+    url('https://hondarentcar.com/wp-content/plugins/wp-live-chat-support/images/bg/tech.jpg');
+  /* background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+    url('https://wallpapercave.com/wp/wp6028948.jpg'); */
+  /* background-image: url('https://wallpapercave.com/wp/wp6028948.jpg');
+  opacity: 0.25; */
 }
 .message-input {
   grid-area: 6 / 1 / 7 / 4;
