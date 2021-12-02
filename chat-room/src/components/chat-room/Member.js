@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/chat-room/Member.css';
+import avatarImg from '../../images/avatar.png';
 
 export default function Member({ name }) {
   return (
@@ -10,10 +11,7 @@ export default function Member({ name }) {
           <span className='status green'></span>
         </h3>
       </div>
-      <img
-        src='https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png'
-        alt='user'
-      />
+      <img src={avatarImg} alt='user' />
     </li>
   );
 }
