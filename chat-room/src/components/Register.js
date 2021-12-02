@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
 
-export default function Login() {
+export default function Register() {
   return (
     <div className='login-form'>
-      <h2>Login:</h2>
+      <h2>Register:</h2>
       <img
         className='login-img'
         alt='general-user'
@@ -19,16 +19,22 @@ export default function Login() {
       </div>
       <div>
         <span className='icon-span'>
+          <i className='fas fa-at'></i>
+        </span>
+        <input id='email' type='email' placeholder='Email'></input> {/* TODO ADD CONDITIONS */}
+      </div>
+      <div>
+        <span className='icon-span'>
           <i className='fas fa-unlock-alt'></i>
         </span>
         <input id='password' type='password' placeholder='Password'></input> {/* TODO ADD CONDITIONS */}
       </div>
-      <Link to={'/home'}>
-        <button id='login-btn'>LOGIN!</button>
+      <Link to={'/'}>
+        <button id='login-btn'>Register!</button>
       </Link>
       <hr />
-      <Link to={'/register'}>
-        <span>Not a member? create account!</span>
+      <Link to={'/'}>
+        <span>A member? Login!</span>
       </Link>
     </div>
   );

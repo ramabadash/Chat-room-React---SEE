@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import '../../styles/chat-room/NavBar.css';
 import '../../styles/chat-room/ChatRoom.css';
 import logo from '../../images/logo.png';
@@ -28,9 +29,11 @@ export default function ChatRoom() {
         <li>
           <img className='logo' alt='logo' src={logo} />
         </li>
-        <li className='logout-nav'>
-          <i className='fas fa-sign-out-alt'></i> LogOut
-        </li>
+        <Link to={'/'}>
+          <li className='logout-nav'>
+            <i className='fas fa-sign-out-alt'></i> LogOut
+          </li>
+        </Link>
       </ul>
       {/* GENERAL SCREEN */}
       <div className='chat-room'>
