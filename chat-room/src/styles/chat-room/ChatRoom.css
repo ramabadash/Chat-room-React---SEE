@@ -13,14 +13,15 @@
 }
 
 .messages-list {
-  grid-area: 2 / 2 / 6 / 4;
+  grid-area: 1 / 1 / 6 / 4;
   background-image: url('https://thumbs.dreamstime.com/b/mobile-apps-pattern-white-background-50171276.jpg');
 }
 .message-input {
-  grid-area: 6 / 2 / 7 / 4;
+  grid-area: 6 / 1 / 7 / 4;
   margin: auto;
   padding: 0.25em;
+  width: 90%;
 }
 .members-list {
-  grid-area: 2 / 4 / 7 / 5;
+  grid-area: 1 / 4 / 7 / 6;
 }
