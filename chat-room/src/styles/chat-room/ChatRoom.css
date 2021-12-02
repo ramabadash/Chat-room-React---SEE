@@ -28,5 +28,6 @@
   width: 90%;
 }
 .members-list {
-  grid-area: 1 / 4 / 7 / 6;
+  grid-area: 1 / 4 / 6 / 6;
+  /* overflow-y: auto; */
 }
