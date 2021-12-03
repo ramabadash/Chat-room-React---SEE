@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../UserContext.js';
 import '../../styles/chat-room/Message.css';
 
 export default function Message({ message, author, time }) {
-  const [userName, setUserName] = useState('rama'); // Demo to my user name - give different class name
+  const { userName } = useContext(UserContext);
 
   return (
     <li className={userName === author ? 'me' : 'you'}>

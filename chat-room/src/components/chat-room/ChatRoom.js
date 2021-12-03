@@ -11,23 +11,10 @@ import MemberList from './MemberList';
 import { UserContext } from '../UserContext.js';
 import { BASEURL } from '../App.js';
 
-// TODO - get messages array from the server
-const demoData = [
-  { author: 'rama', message: 'Hello', time: moment().format('llll') },
-  { author: 'bla', message: 'hello to you', time: moment().format('llll') },
-  { author: 'no one', message: 'I am no one', time: moment().format('llll') },
-  { author: 'no one2', message: 'I am no one2', time: moment().format('llll') },
-  {
-    author: 'rama',
-    message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
-    time: moment().format('llll'),
-  },
-];
-
 export default function ChatRoom() {
   /***** STATES *****/
-  const [messages, setMessages] = useState([]);
-  const { userName } = useContext(UserContext);
+  // const [messages, setMessages] = useState([]);
+  const { userName, messages } = useContext(UserContext);
 
   /***** FUNCTIONS *****/
   const sendMessage = async (content) => {
@@ -60,14 +47,14 @@ export default function ChatRoom() {
       {/* GENERAL SCREEN */}
       <div className='chat-room'>
         <div className='messages-list'>
-          <MessagesList chatData={demoData} />
+          <MessagesList chatData={messages} />
         </div>
         <div className='message-input'>
           <MessageInput sendMessage={sendMessage} />
         </div>
         <div className='members-list'>
           <h2>Members: </h2>
-          <MemberList chatData={demoData} />
+          <MemberList chatData={messages} />
         </div>
       </div>
     </div>
