@@ -29,20 +29,19 @@ exports.register = async (req, res, next) => {
 // Login by userName and password - create token + refresh token, save to DB and send back
 exports.login = async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const { userName, password } = req.body;
 
-    const user = await User.findOne({ username });
-
+    const user = await User.findOne({ userName });
     if (!user) throw { status: 400, message: 'No such username' };
     if (!bcrypt.compare(password, user.password)) throw { status: 400, message: 'Bad password' };
 
     const userId = user._id;
 
-    const accessToken = jwt.sign({ username, userId }, process.env.ACCESS_SECRET, {
+    const accessToken = jwt.sign({ userName, userId }, process.env.ACCESS_SECRET, {
       expiresIn: '1h',
     });
 
-    const refreshToken = jwt.sign({ userId, username }, process.env.REFRESH_SECRET, {
+    const refreshToken = jwt.sign({ userId, userName }, process.env.REFRESH_SECRET, {
       expiresIn: '24h',
     });
 

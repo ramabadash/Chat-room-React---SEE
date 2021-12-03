@@ -6,8 +6,8 @@ import { UserContext } from '../components/UserContext.js';
 
 export default function Login() {
   /***** REFS *****/
-  const userNameInput = useRef('');
-  const passwordInput = useRef('');
+  const userNameLoginInput = useRef('');
+  const passwordLoginInput = useRef('');
 
   /***** FUNCTIONS *****/
   const navigate = useNavigate();
@@ -25,21 +25,21 @@ export default function Login() {
         <span className='icon-span'>
           <i className='far fa-user'></i>
         </span>
-        <input ref={userNameInput} id='userName' type='text' placeholder='User name'></input>{' '}
+        <input ref={userNameLoginInput} id='userName' type='text' placeholder='User name'></input>{' '}
         {/* TODO ADD CONDITIONS */}
       </div>
       <div>
         <span className='icon-span'>
           <i className='fas fa-unlock-alt'></i>
         </span>
-        <input ref={passwordInput} id='password' type='password' placeholder='Password'></input>{' '}
+        <input ref={passwordLoginInput} id='password' type='password' placeholder='Password'></input>{' '}
         {/* TODO ADD CONDITIONS */}
       </div>
       <button
         id='login-btn'
         onClick={async () => {
-          const userName = userNameInput.current.value;
-          const password = passwordInput.current.value;
+          const userName = userNameLoginInput.current.value;
+          const password = passwordLoginInput.current.value;
           const answer = await login(userName, password);
           if (answer) navigate('/home');
           else return; //TODO- ADD ERROR FUNCTIONALITY / GET NEW TOKEN
