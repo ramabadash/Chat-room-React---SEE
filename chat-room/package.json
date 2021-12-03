@@ -11,6 +11,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "experss": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mongoose": "^6.0.14",
     "react": "^17.0.2",
