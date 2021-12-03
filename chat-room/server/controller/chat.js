@@ -5,13 +5,14 @@ const clients = [];
 exports.sendMessage = async (req, res, next) => {
   const { userName, content, timeStamp } = req.body;
   try {
-    await Message.create({
+    const message = await Message.create({
       userName,
       content,
       timeStamp,
     });
 
     res.status(200).send('Message Sent');
+    return sendToAll(message);
   } catch (error) {
     next(error);
   }
@@ -44,3 +45,8 @@ exports.getAllMessages = async (req, res, next) => {
     next(error);
   }
 };
+
+// Triggered by post request to write message to every one
+function sendToAll(message) {
+  clients.forEach((c) => c.res.write(`data: ${JSON.stringify(message)}\n\n`));
+}
