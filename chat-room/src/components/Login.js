@@ -1,9 +1,8 @@
-import React, { useRef } from 'react';
-import axios from 'axios';
+import React, { useRef, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
-import { BASEURL } from '../components/App.js';
+import { UserContext } from '../components/UserContext.js';
 
 export default function Login() {
   /***** REFS *****/
@@ -12,27 +11,7 @@ export default function Login() {
 
   /***** FUNCTIONS *****/
   const navigate = useNavigate();
-
-  // Send login form
-  const login = async () => {
-    const userName = userNameInput.current.value;
-    const password = passwordInput.current.value;
-
-    try {
-      // TODO ADD VALIDATION
-      if (!userName || !password) {
-        throw new Error({ status: 400, message: 'Missing details' });
-      }
-      const response = await axios.post(`${BASEURL}/users/login`, {
-        userName,
-        password: String(password),
-      });
-      console.log(response.data); //TODO - ADD TOKEN TO COOKIES
-      return response.data; //TODO- ADD SUCCESS MESSAGE
-    } catch (error) {
-      console.log(error); //TODO- ADD ERROR MESSAGE
-    }
-  };
+  const { login } = useContext(UserContext);
 
   return (
     <div className='login-form'>
@@ -59,7 +38,9 @@ export default function Login() {
       <button
         id='login-btn'
         onClick={async () => {
-          const answer = await login();
+          const userName = userNameInput.current.value;
+          const password = passwordInput.current.value;
+          const answer = await login(userName, password);
           if (answer) navigate('/home');
           else return; //TODO- ADD ERROR FUNCTIONALITY / GET NEW TOKEN
         }}

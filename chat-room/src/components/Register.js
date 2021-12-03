@@ -1,9 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { useNavigate } from 'react-router';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
-import { BASEURL } from '../components/App.js';
+import { UserContext } from '../components/UserContext.js';
 
 export default function Register() {
   /***** REFS *****/
@@ -13,28 +12,7 @@ export default function Register() {
 
   /***** FUNCTIONS *****/
   const navigate = useNavigate();
-  // Send register form
-  const register = async () => {
-    const userName = userNameInput.current.value;
-    const password = passwordInput.current.value;
-    const email = emailInput.current.value;
-
-    try {
-      // TODO ADD VALIDATION
-      if (!userName || !password || !email) {
-        throw new Error({ status: 400, message: 'Missing details' });
-      }
-      const response = await axios.post(`${BASEURL}/users/register`, {
-        userName,
-        password: String(password),
-        email,
-      });
-
-      return response.data; //TODO- ADD SUCCESS MESSAGE
-    } catch (error) {
-      console.log(error); //TODO- ADD ERROR MESSAGE
-    }
-  };
+  const { register } = useContext(UserContext);
 
   return (
     <div className='login-form'>
@@ -67,7 +45,10 @@ export default function Register() {
       <button
         id='login-btn'
         onClick={async () => {
-          const answer = await register();
+          const userName = userNameInput.current.value;
+          const password = passwordInput.current.value;
+          const email = emailInput.current.value;
+          const answer = await register(userName, password, email);
           if (answer === 'Registered') navigate('/');
           else return;
         }}
