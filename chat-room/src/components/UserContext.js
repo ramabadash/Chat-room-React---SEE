@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { BASEURL } from './App.js';
 
 export const UserContext = React.createContext({});
@@ -7,8 +8,30 @@ export const UserContext = React.createContext({});
 export const UserProvider = ({ children }) => {
   const [userName, setUserName] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refresh'));
-  const [accessToken, setAccessToken] = useState(localStorage.getItem('access'));
+  const [refreshToken, setRefreshToken] = useState('');
+  const [accessToken, setAccessToken] = useState('');
+  const [connection, setConnection] = useState(false);
+  const [messages, setMessages] = useState([]);
+
+  // Create stream connection - on login
+  useEffect(() => {
+    if (!connection && loggedIn) {
+      const events = new EventSource(`${BASEURL}/chat/get-all/?userName=${userName}`);
+
+      events.onopen = (e) => {
+        setConnection(connection);
+      };
+
+      events.onerror = console.log;
+
+      events.onmessage = ({ data }) => {
+        setMessages((prevMessages) => {
+          const messages = JSON.parse(data);
+          return messages.length ? messages : [...prevMessages, messages];
+        });
+      };
+    }
+  }, [connection, loggedIn, userName]);
 
   // Send login form
   const login = async (userName, password) => {
@@ -51,6 +74,8 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ loggedIn, userName, accessToken, login, register }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ loggedIn, userName, accessToken, messages, login, register }}>
+      {children}
+    </UserContext.Provider>
   );
 };
