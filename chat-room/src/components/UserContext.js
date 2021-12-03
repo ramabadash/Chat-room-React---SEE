@@ -5,7 +5,7 @@ import { BASEURL } from './App.js';
 export const UserContext = React.createContext({});
 
 export const UserProvider = ({ children }) => {
-  const [username, setUsername] = useState(null);
+  const [userName, setUserName] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refresh'));
   const [accessToken, setAccessToken] = useState(localStorage.getItem('access'));
@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
       });
       setRefreshToken(response.data.refreshToken);
       setAccessToken(response.data.accessToken);
-      setUsername(username);
+      setUserName(userName);
       setLoggedIn(true);
       return response.data; //TODO- ADD SUCCESS MESSAGE
     } catch (error) {
@@ -51,6 +51,6 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ loggedIn, username, accessToken, login, register }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ loggedIn, userName, accessToken, login, register }}>{children}</UserContext.Provider>
   );
 };
