@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { BASEURL } from './App.js';
 
@@ -78,4 +78,14 @@ export const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+//Navigate to login page users that isn't loggedIn
+export const useCheckLoggedIn = () => {
+  const { loggedIn } = useContext(UserContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!loggedIn) navigate('/');
+  }, [loggedIn, navigate]);
+  return loggedIn;
 };

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,7 @@ import logo from '../../images/logo.png';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
 import MemberList from './MemberList';
-import { UserContext } from '../UserContext.js';
+import { UserContext, useCheckLoggedIn } from '../UserContext.js';
 import { BASEURL } from '../App.js';
 
 export default function ChatRoom() {
@@ -17,6 +17,8 @@ export default function ChatRoom() {
   const { userName, messages } = useContext(UserContext);
 
   /***** FUNCTIONS *****/
+  useCheckLoggedIn(); //Navigate to login page users that isn't loggedIn
+  //
   const sendMessage = async (content) => {
     try {
       console.log(userName, content);
