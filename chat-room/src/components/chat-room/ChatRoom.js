@@ -74,7 +74,6 @@ export default function ChatRoom() {
           <MessageInput sendMessage={sendMessage} />
         </div>
         <div className='members-list'>
-          <h2>Members: </h2>
           <MemberList chatData={onLineUsers} />
         </div>
       </div>
