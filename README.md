@@ -58,9 +58,9 @@
 
 #### Pics -
 
-<img src="./readme-pics/chat-room.png" width="70%" height="20%">
-<img src="./readme-pics/login.png" width="45%" height="20%">
-<img src="./readme-pics/register.png" width="45%" height="20%">
+<img src="./readme-pics/chat-room.png" >
+<img src="./readme-pics/login.png" >
+<img src="./readme-pics/register.png" >
 ---
 
 ## Bonus:
