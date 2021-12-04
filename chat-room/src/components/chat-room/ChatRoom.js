@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -15,11 +15,24 @@ import 'notyf/notyf.min.css'; // for React, Vue and Svelte
 const notyf = new Notyf();
 
 export default function ChatRoom() {
+  /***** REFS *****/
+  const messageEl = useRef(null);
+
   /***** STATES *****/
   const { userName, messages, onLineUsers, logout, accessToken } = useContext(UserContext);
 
   /***** FUNCTIONS *****/
-  useCheckLoggedIn(); //Navigate to login page users that isn't loggedIn
+  //
+  useEffect(() => {
+    if (messageEl !== null) {
+      messageEl.current.addEventListener('DOMNodeInserted', (event) => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+      });
+    }
+  }, []);
+  //Navigate to login page users that isn't loggedIn
+  useCheckLoggedIn();
   //
   const sendMessage = async (content) => {
     try {
@@ -56,7 +69,7 @@ export default function ChatRoom() {
       {/* GENERAL SCREEN */}
       <div className='chat-room'>
         <div className='messages-list'>
-          <MessagesList chatData={messages} />
+          <MessagesList chatData={messages} messagesRef={messageEl} />
         </div>
         <div className='message-input'>
           <MessageInput sendMessage={sendMessage} />

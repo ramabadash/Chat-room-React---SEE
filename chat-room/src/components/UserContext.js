@@ -85,7 +85,7 @@ export const UserProvider = ({ children }) => {
       notyf.success('Welcome!'); //success message
       return response.data;
     } catch (error) {
-      notyf.error(`Sorry, ${error.error.message}. please try again!`); //error message
+      notyf.error(`Sorry, ${error.response.data}. please try again!`); //error message
     }
   };
 
