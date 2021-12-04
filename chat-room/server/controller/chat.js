@@ -27,6 +27,7 @@ exports.sendMessage = async (req, res, next) => {
 exports.getAllMessages = async (req, res, next) => {
   try {
     const { userName } = req.query;
+    console.log(`${userName} open messages connection`);
 
     const messageList = await Message.find({});
     res.set({
@@ -65,6 +66,9 @@ function sendToAll(message) {
 exports.getAllUsers = async (req, res, next) => {
   try {
     const { userName } = req.query;
+
+    console.log(`${userName} open users connection`);
+
     // Get all connected users from tokens data
     const usersList = await Token.find({});
     res.set({

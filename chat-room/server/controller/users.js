@@ -7,12 +7,13 @@ const Token = require('../models/Token.js');
 // Register by -userName, email and password
 exports.register = async (req, res, next) => {
   try {
-    const { userName, email, password } = req.body;
+    const { userName, email, password, gender } = req.body;
 
     await User.create({
       userName,
       email,
       password: await bcrypt.hash(password, await bcrypt.genSalt(8)),
+      gender,
     });
 
     res.send('Registered');
@@ -44,7 +45,13 @@ exports.login = async (req, res, next) => {
     if (tokenUser) {
       await Token.findOneAndUpdate({ userId }, { $set: { AccessToken: accessToken, RefreshToken: refreshToken } });
     } else {
-      Token.create({ userId, userName, AccessToken: accessToken, RefreshToken: refreshToken });
+      Token.create({
+        userId,
+        userName,
+        gender: user.gender || 'none',
+        AccessToken: accessToken,
+        RefreshToken: refreshToken,
+      });
     }
 
     res.send({ accessToken, refreshToken });

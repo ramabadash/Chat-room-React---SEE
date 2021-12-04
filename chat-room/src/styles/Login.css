@@ -37,6 +37,17 @@
   font-size: 1em;
   margin-right: 0.25em;
 }
+.gender-select {
+  font-size: 1em;
+  width: 80%;
+  margin: 1em auto;
+  height: auto;
+  border-radius: 0.5em;
+  border-color: #222;
+  color: #222;
+  background-color: antiquewhite;
+  font-family: 'Didact Gothic';
+}
 
 #login-btn {
   width: 50%;

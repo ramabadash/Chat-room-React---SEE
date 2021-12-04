@@ -1,7 +1,6 @@
 import React, { useRef, useContext, useEffect } from 'react';
 import moment from 'moment';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import '../../styles/chat-room/NavBar.css';
 import '../../styles/chat-room/ChatRoom.css';
 import logo from '../../images/logo.png';

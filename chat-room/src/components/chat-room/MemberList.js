@@ -5,8 +5,8 @@ import '../../styles/chat-room/Member.css';
 export default function MemberList({ chatData }) {
   return (
     <ul>
-      {chatData.map(({ userName }, index) => (
-        <Member key={index} name={userName} />
+      {chatData.map(({ userName, gender }, index) => (
+        <Member key={index} name={userName} gender={gender} />
       ))}
     </ul>
   );

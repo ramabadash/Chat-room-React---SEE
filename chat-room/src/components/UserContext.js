@@ -90,7 +90,7 @@ export const UserProvider = ({ children }) => {
   };
 
   // Send register form
-  const register = async (userName, password, email) => {
+  const register = async (userName, password, email, gender) => {
     try {
       // TODO ADD VALIDATION
       if (!userName || !password || !email) {
@@ -100,6 +100,7 @@ export const UserProvider = ({ children }) => {
         userName,
         password: String(password),
         email,
+        gender,
       });
       notyf.success(`User created successfully! `); //success message
       return response.data;
