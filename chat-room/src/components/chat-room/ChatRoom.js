@@ -14,14 +14,12 @@ import { BASEURL } from '../App.js';
 export default function ChatRoom() {
   /***** STATES *****/
   // const [messages, setMessages] = useState([]);
-  const { userName, messages } = useContext(UserContext);
-
+  const { userName, messages, onLineUsers } = useContext(UserContext);
   /***** FUNCTIONS *****/
   useCheckLoggedIn(); //Navigate to login page users that isn't loggedIn
   //
   const sendMessage = async (content) => {
     try {
-      console.log(userName, content);
       const response = await axios.post(`${BASEURL}/chat/send-message`, {
         userName,
         content,
@@ -56,7 +54,7 @@ export default function ChatRoom() {
         </div>
         <div className='members-list'>
           <h2>Members: </h2>
-          <MemberList chatData={messages} />
+          <MemberList chatData={onLineUsers} />
         </div>
       </div>
     </div>

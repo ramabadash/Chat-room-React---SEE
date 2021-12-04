@@ -10,28 +10,50 @@ export const UserProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [refreshToken, setRefreshToken] = useState('');
   const [accessToken, setAccessToken] = useState('');
-  const [connection, setConnection] = useState(false);
+  const [messageConnection, setMessageConnection] = useState(false);
+  const [usersConnection, setUsersConnection] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [onLineUsers, setOnLineUsers] = useState([]);
 
-  // Create stream connection - on login
+  // Create stream connection to get messages- on login
   useEffect(() => {
-    if (!connection && loggedIn) {
-      const events = new EventSource(`${BASEURL}/chat/get-all/?userName=${userName}`);
+    if (!messageConnection && loggedIn) {
+      const messageEvents = new EventSource(`${BASEURL}/chat/get-all/?userName=${userName}`);
 
-      events.onopen = (e) => {
-        setConnection(connection);
+      messageEvents.onopen = (e) => {
+        setMessageConnection(messageEvents);
       };
 
-      events.onerror = console.log;
+      messageEvents.onerror = console.log;
 
-      events.onmessage = ({ data }) => {
+      messageEvents.onmessage = ({ data }) => {
         setMessages((prevMessages) => {
           const messages = JSON.parse(data);
-          return messages.length ? messages : [...prevMessages, messages];
+          return Array.isArray(messages) ? messages : [...prevMessages, messages];
         });
       };
     }
-  }, [connection, loggedIn, userName]);
+  }, [messageConnection, loggedIn, userName]);
+
+  // Create stream connection to get users- on login
+  useEffect(() => {
+    if (!usersConnection && loggedIn) {
+      const usersEvents = new EventSource(`${BASEURL}/chat/users/?userName=${userName}`);
+
+      usersEvents.onopen = (e) => {
+        setUsersConnection(usersEvents);
+      };
+
+      usersEvents.onerror = console.log;
+
+      usersEvents.onmessage = ({ data }) => {
+        setOnLineUsers((prevUsers) => {
+          const userData = JSON.parse(data);
+          return Array.isArray(userData) ? userData : [...prevUsers, userData];
+        });
+      };
+    }
+  }, [usersConnection, loggedIn, userName]);
 
   // Send login form
   const login = async (userName, password) => {
@@ -74,7 +96,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ loggedIn, userName, accessToken, messages, login, register }}>
+    <UserContext.Provider value={{ loggedIn, userName, accessToken, messages, onLineUsers, login, register }}>
       {children}
     </UserContext.Provider>
   );
