@@ -8,11 +8,6 @@ const Token = require('../models/Token.js');
 exports.register = async (req, res, next) => {
   try {
     const { userName, email, password } = req.body;
-    const exists = await User.find({ $or: [{ email }, { userName }] });
-
-    if (exists.length > 0) {
-      throw { status: 400, message: 'UserName or email already exists' };
-    }
 
     await User.create({
       userName,
