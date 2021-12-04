@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { register, login } = require('../controller/users.js');
+const { register, login, logout } = require('../controller/users.js');
 
 // localhost:8080/users
 
 router.post('/register', register);
 router.post('/login', login);
+router.post('/logout', logout);
 
 module.exports = router;

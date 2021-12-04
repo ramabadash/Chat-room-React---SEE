@@ -1,8 +1,7 @@
 const Message = require('../models/Message');
 const Token = require('../models/Token');
-const moment = require('moment');
 
-const clients = [];
+let clients = [];
 
 /***** FUNCTIONS ******/
 
@@ -47,6 +46,10 @@ exports.getAllMessages = async (req, res, next) => {
       res,
     };
     clients.push(newClient);
+
+    req.on('close', () => {
+      console.log(`${userName} close messages connection`);
+    });
   } catch (error) {
     next(error);
   }
@@ -74,6 +77,15 @@ exports.getAllUsers = async (req, res, next) => {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
     });
     res.write(`data: ${JSON.stringify(usersList)}\n\n`);
+
+    // When client closes connection we update the clients list
+    // avoiding the disconnected one
+    req.on('close', () => {
+      console.log(`${userName} close users connection`);
+      res.write(`data: ${JSON.stringify(usersList)}\n\n`); //Update onLine users
+      clients = clients.filter((client) => client.userName !== userName);
+      sendToAll(`${userName} left the chat...`);
+    });
 
     return sendToAll(`${userName} joined the chat!`); // Send message about user login to all
   } catch (error) {

@@ -57,3 +57,16 @@ exports.login = async (req, res, next) => {
     next(err);
   }
 };
+
+// Logout by userName
+exports.logout = async (req, res, next) => {
+  try {
+    const { userName } = req.body;
+
+    //Delete user from tokens DB
+    await Token.deleteOne({ userName });
+    res.status(204).send('Logged out');
+  } catch (error) {
+    next(error);
+  }
+};
