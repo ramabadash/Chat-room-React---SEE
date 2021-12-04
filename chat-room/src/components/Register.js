@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
 import { UserContext } from '../components/UserContext.js';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css'; // for React, Vue and Svelte
+const notyf = new Notyf();
 
 export default function Register() {
   /***** REFS *****/
@@ -50,7 +53,10 @@ export default function Register() {
           const email = emailInput.current.value;
           const answer = await register(userName, password, email);
           if (answer === 'Registered') navigate('/');
-          else return;
+          else {
+            notyf.error(`Sorry, someThing went wrong. please try again!`); //error message
+            return;
+          }
         }}
       >
         Register!

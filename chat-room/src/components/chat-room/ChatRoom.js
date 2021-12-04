@@ -10,6 +10,9 @@ import MessagesList from './MessagesList';
 import MemberList from './MemberList';
 import { UserContext, useCheckLoggedIn } from '../UserContext.js';
 import { BASEURL } from '../App.js';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css'; // for React, Vue and Svelte
+const notyf = new Notyf();
 
 export default function ChatRoom() {
   /***** STATES *****/
@@ -25,9 +28,9 @@ export default function ChatRoom() {
         content,
         timeStamp: String(moment().format('llll')),
       });
-      console.log(response.data); // TODO - ADD SUCCESS MESSAGE
+      notyf.success(response.data); //success message
     } catch (error) {
-      console.log(error); // TODO - ADD ERROR MESSAGE
+      notyf.error(`Sorry, ${error.response.data}. please try again!`); //error message
     }
   };
 

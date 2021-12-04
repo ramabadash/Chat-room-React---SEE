@@ -55,6 +55,10 @@
   border-color: rgb(20, 14, 104);
 }
 
+a {
+  color: antiquewhite;
+}
+
 @media screen and (max-width: 992px) {
   .login-form {
     width: 70%;

@@ -2,6 +2,9 @@ import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { BASEURL } from './App.js';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css'; // for React, Vue and Svelte
+const notyf = new Notyf();
 
 export const UserContext = React.createContext({});
 
@@ -37,9 +40,7 @@ export const UserProvider = ({ children }) => {
 
   // Create stream connection to get users- on login
   useEffect(() => {
-    console.log('in the function');
     if (!usersConnection && loggedIn) {
-      console.log('in the function in the if');
       const usersEvents = new EventSource(`${BASEURL}/chat/users/?userName=${userName}`);
 
       usersEvents.onopen = (e) => {
@@ -49,7 +50,6 @@ export const UserProvider = ({ children }) => {
       usersEvents.onerror = console.log;
 
       usersEvents.onmessage = ({ data }) => {
-        console.log('users', data);
         setOnLineUsers((prevUsers) => {
           const userData = JSON.parse(data);
           return Array.isArray(userData) ? userData : [...prevUsers, userData];
@@ -73,9 +73,10 @@ export const UserProvider = ({ children }) => {
       setAccessToken(response.data.accessToken);
       setUserName(userName);
       setLoggedIn(true);
-      return response.data; //TODO- ADD SUCCESS MESSAGE
+      notyf.success('Welcome!'); //success message
+      return response.data;
     } catch (error) {
-      console.log(error); //TODO- ADD ERROR MESSAGE
+      notyf.error(`Sorry, ${error.error.message}. please try again!`); //error message
     }
   };
 
@@ -84,17 +85,17 @@ export const UserProvider = ({ children }) => {
     try {
       // TODO ADD VALIDATION
       if (!userName || !password || !email) {
-        throw new Error({ status: 400, message: 'Missing details' });
+        return notyf.error(`Sorry, Missing details. please try again!`); //error message
       }
       const response = await axios.post(`${BASEURL}/users/register`, {
         userName,
         password: String(password),
         email,
       });
-
-      return response.data; //TODO- ADD SUCCESS MESSAGE
+      notyf.success(`User created successfully! `); //success message
+      return response.data;
     } catch (error) {
-      console.log(error); //TODO- ADD ERROR MESSAGE
+      notyf.error(`Sorry, ${error.response.data}. please try again!`); //error message
     }
   };
 
@@ -118,9 +119,9 @@ export const UserProvider = ({ children }) => {
       setMessageConnection((prevEvent) => false);
       setUsersConnection((prevEvent) => false);
 
-      console.log(response.data); //TODO- ADD SUCCESS MESSAGE
+      notyf.success(`User logged out successfully! `); //success message
     } catch (error) {
-      console.log(error); //TODO- ADD ERROR MESSAGE
+      notyf.error(`Sorry, ${error.response.data}. please try again!`); //error message
     }
   };
 

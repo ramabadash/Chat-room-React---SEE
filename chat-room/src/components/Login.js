@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
 import { UserContext } from '../components/UserContext.js';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css'; // for React, Vue and Svelte
+const notyf = new Notyf();
 
 export default function Login() {
   /***** REFS *****/
@@ -42,7 +45,10 @@ export default function Login() {
           const password = passwordLoginInput.current.value;
           const answer = await login(userName, password);
           if (answer) navigate('/home');
-          else return; //TODO- ADD ERROR FUNCTIONALITY / GET NEW TOKEN
+          else {
+            notyf.error(`Sorry, someThing went wrong. please try again!`); //error message
+            return;
+          }
         }}
       >
         LOGIN!
