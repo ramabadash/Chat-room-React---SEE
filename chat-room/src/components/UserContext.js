@@ -3,7 +3,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { BASEURL } from './App.js';
 import { Notyf } from 'notyf';
-import 'notyf/notyf.min.css'; // for React, Vue and Svelte
+import 'notyf/notyf.min.css';
+import { EventSourcePolyfill } from 'event-source-polyfill'; // for React, Vue and Svelte
 const notyf = new Notyf();
 
 export const UserContext = React.createContext({});
@@ -21,7 +22,11 @@ export const UserProvider = ({ children }) => {
   // Create stream connection to get messages- on login
   useEffect(() => {
     if (!messageConnection && loggedIn) {
-      const messageEvents = new EventSource(`${BASEURL}/chat/get-all/?userName=${userName}`);
+      const messageEvents = new EventSourcePolyfill(`${BASEURL}/chat/get-all/?userName=${userName}`, {
+        headers: {
+          AccessToken: accessToken,
+        },
+      });
 
       messageEvents.onopen = (e) => {
         setMessageConnection(messageEvents);
@@ -41,7 +46,11 @@ export const UserProvider = ({ children }) => {
   // Create stream connection to get users- on login
   useEffect(() => {
     if (!usersConnection && loggedIn) {
-      const usersEvents = new EventSource(`${BASEURL}/chat/users/?userName=${userName}`);
+      const usersEvents = new EventSourcePolyfill(`${BASEURL}/chat/users/?userName=${userName}`, {
+        headers: {
+          AccessToken: accessToken,
+        },
+      });
 
       usersEvents.onopen = (e) => {
         setUsersConnection(usersEvents);

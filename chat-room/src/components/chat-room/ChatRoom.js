@@ -16,18 +16,26 @@ const notyf = new Notyf();
 
 export default function ChatRoom() {
   /***** STATES *****/
-  const { userName, messages, onLineUsers, logout } = useContext(UserContext);
+  const { userName, messages, onLineUsers, logout, accessToken } = useContext(UserContext);
 
   /***** FUNCTIONS *****/
   useCheckLoggedIn(); //Navigate to login page users that isn't loggedIn
   //
   const sendMessage = async (content) => {
     try {
-      const response = await axios.post(`${BASEURL}/chat/send-message`, {
-        userName,
-        content,
-        timeStamp: String(moment().format('llll')),
-      });
+      const response = await axios.post(
+        `${BASEURL}/chat/send-message`,
+        {
+          userName,
+          content,
+          timeStamp: String(moment().format('llll')),
+        },
+        {
+          headers: {
+            AccessToken: accessToken,
+          },
+        }
+      );
       notyf.success(response.data); //success message
     } catch (error) {
       notyf.error(`Sorry, ${error.response.data}. please try again!`); //error message
