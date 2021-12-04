@@ -13,7 +13,7 @@ import { BASEURL } from '../App.js';
 
 export default function ChatRoom() {
   /***** STATES *****/
-  const { userName, messages, onLineUsers } = useContext(UserContext);
+  const { userName, messages, onLineUsers, logout } = useContext(UserContext);
 
   /***** FUNCTIONS *****/
   useCheckLoggedIn(); //Navigate to login page users that isn't loggedIn
@@ -38,11 +38,9 @@ export default function ChatRoom() {
         <li>
           <img className='logo' alt='logo' src={logo} />
         </li>
-        <Link to={'/'}>
-          <li className='logout-nav'>
-            <i className='fas fa-sign-out-alt'></i> LogOut
-          </li>
-        </Link>
+        <li className='logout-nav' onClick={logout}>
+          <i className='fas fa-sign-out-alt'></i> LogOut
+        </li>
       </ul>
       {/* GENERAL SCREEN */}
       <div className='chat-room'>

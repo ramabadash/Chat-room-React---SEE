@@ -37,7 +37,9 @@ export const UserProvider = ({ children }) => {
 
   // Create stream connection to get users- on login
   useEffect(() => {
+    console.log('in the function');
     if (!usersConnection && loggedIn) {
+      console.log('in the function in the if');
       const usersEvents = new EventSource(`${BASEURL}/chat/users/?userName=${userName}`);
 
       usersEvents.onopen = (e) => {
@@ -47,13 +49,14 @@ export const UserProvider = ({ children }) => {
       usersEvents.onerror = console.log;
 
       usersEvents.onmessage = ({ data }) => {
+        console.log('users', data);
         setOnLineUsers((prevUsers) => {
           const userData = JSON.parse(data);
           return Array.isArray(userData) ? userData : [...prevUsers, userData];
         });
       };
     }
-  }, [usersConnection, loggedIn, userName]);
+  }, [messages, usersConnection, loggedIn, userName]);
 
   // Send login form
   const login = async (userName, password) => {
@@ -95,8 +98,34 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // Logout
+  const logout = async () => {
+    try {
+      // Delete tokens from DB
+      const response = await axios.post(`${BASEURL}/users/logout`, {
+        userName,
+      });
+
+      // Delete states
+      setUserName(null);
+      setRefreshToken(null);
+      setAccessToken(null);
+      setLoggedIn(false);
+
+      //Close connections
+      messageConnection.close();
+      usersConnection.close();
+      setMessageConnection((prevEvent) => false);
+      setUsersConnection((prevEvent) => false);
+
+      console.log(response.data); //TODO- ADD SUCCESS MESSAGE
+    } catch (error) {
+      console.log(error); //TODO- ADD ERROR MESSAGE
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ loggedIn, userName, accessToken, messages, onLineUsers, login, register }}>
+    <UserContext.Provider value={{ loggedIn, userName, accessToken, messages, onLineUsers, login, register, logout }}>
       {children}
     </UserContext.Provider>
   );
