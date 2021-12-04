@@ -23,13 +23,18 @@ exports.sendMessage = async (req, res, next) => {
   }
 };
 
-// Get All Messages
-exports.getAllMessages = async (req, res, next) => {
+/***** STREAM ******/
+// Create stream connection and send all data
+exports.getAllData = async (req, res, next) => {
   try {
     const { userName } = req.query;
-    console.log(`${userName} open messages connection`);
 
-    const messageList = await Message.find({});
+    console.log(`${userName} open connection`);
+
+    const usersList = await Token.find({}); // Get all connected users from tokens data
+    const messageList = await Message.find({}); // Get all messages from messages data
+    const data = { usersList, messageList };
+
     res.set({
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
@@ -39,56 +44,16 @@ exports.getAllMessages = async (req, res, next) => {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
     });
-    res.write(`data: ${JSON.stringify(messageList)}\n\n`);
-
-    // Save response to be answered
-    const newClient = {
-      userName,
-      res,
-    };
-    clients.push(newClient);
-
-    req.on('close', () => {
-      console.log(`${userName} close messages connection`);
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-// Triggered by post request to write message to every one
-function sendToAll(message) {
-  clients.forEach((c) => c.res.write(`data: ${JSON.stringify(message)}\n\n`));
-}
-
-/***** USERS ******/
-// Get All Users
-exports.getAllUsers = async (req, res, next) => {
-  try {
-    const { userName } = req.query;
-
-    console.log(`${userName} open users connection`);
-
-    // Get all connected users from tokens data
-    const usersList = await Token.find({});
-    res.set({
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      Connection: 'keep-alive',
-
-      // enabling CORS
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-    });
-    res.write(`data: ${JSON.stringify(usersList)}\n\n`);
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
 
     // When client closes connection we update the clients list
     // avoiding the disconnected one
     req.on('close', () => {
-      console.log(`${userName} close users connection`);
-      res.write(`data: ${JSON.stringify(usersList)}\n\n`); //Update onLine users
-      clients = clients.filter((client) => client.userName !== userName);
-      sendToAll(`${userName} left the chat...`);
+      res.write(`data: ${JSON.stringify(data)}\n\n`); //Update onLine users
+      clients = clients.filter((client) => client.userName !== userName); //remove user from res array
+      sendToAll(`${userName} left the chat...`); //send message "user left chat.."
+
+      console.log(`${userName} close connection`);
     });
 
     return sendToAll(`${userName} joined the chat!`); // Send message about user login to all
@@ -96,3 +61,8 @@ exports.getAllUsers = async (req, res, next) => {
     next(error);
   }
 };
+// Triggered by post request to write message to every one
+function sendToAll(message) {
+  console.log(message);
+  clients.forEach((c) => c.res.write(`data: ${{ messageList: JSON.stringify(message) }}\n\n`));
+}

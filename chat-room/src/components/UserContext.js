@@ -14,63 +14,44 @@ export const UserProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [refreshToken, setRefreshToken] = useState('');
   const [accessToken, setAccessToken] = useState('');
-  const [messageConnection, setMessageConnection] = useState(false);
-  const [usersConnection, setUsersConnection] = useState(false);
+  const [eventSource, setEventSource] = useState(false);
   const [messages, setMessages] = useState([]);
   const [onLineUsers, setOnLineUsers] = useState([]);
 
-  // Create stream connection to get messages- on login
+  // Create stream connection to get messages and users
   useEffect(() => {
-    if (!loggedIn && messageConnection) {
-      messageConnection.close();
-      setMessageConnection(false);
+    if (!loggedIn && eventSource) {
+      eventSource.close();
+      setEventSource(false);
     }
 
-    if (!messageConnection && loggedIn) {
-      const messageEvents = new EventSourcePolyfill(`${BASEURL}/chat/get-all/?userName=${userName}`, {
+    if (!eventSource && loggedIn) {
+      const event = new EventSourcePolyfill(`${BASEURL}/chat/stream/?userName=${userName}`, {
         headers: {
           AccessToken: accessToken,
         },
       });
 
-      messageEvents.onopen = (e) => {
-        setMessageConnection(messageEvents);
+      event.onopen = (e) => {
+        setEventSource(event);
       };
 
-      messageEvents.onerror = console.log;
+      event.onerror = console.log;
 
-      messageEvents.onmessage = ({ data }) => {
+      event.onmessage = ({ data }) => {
+        console.log('data', data);
         setMessages((prevMessages) => {
-          const messages = JSON.parse(data);
+          const messages = JSON.parse(data).messageList;
+          console.log('messages', messages);
           return Array.isArray(messages) ? messages : [...prevMessages, messages];
         });
-      };
-    }
-  }, [messageConnection, loggedIn, userName]);
-
-  // Create stream connection to get users- on login
-  useEffect(() => {
-    if (!usersConnection && loggedIn) {
-      const usersEvents = new EventSourcePolyfill(`${BASEURL}/chat/users/?userName=${userName}`, {
-        headers: {
-          AccessToken: accessToken,
-        },
-      });
-
-      usersEvents.onopen = (e) => {
-        setUsersConnection(usersEvents);
-      };
-
-      usersEvents.onerror = console.log;
-
-      usersEvents.onmessage = ({ data }) => {
         setOnLineUsers((prevUsers) => {
-          const userData = JSON.parse(data);
+          const userData = JSON.parse(data).usersList;
           return Array.isArray(userData) ? userData : [...prevUsers, userData];
         });
       };
     }
-  }, [messages, usersConnection, loggedIn, userName]);
+  }, [eventSource, loggedIn, userName, accessToken]);
 
   // Send login form
   const login = async (userName, password) => {
@@ -129,10 +110,8 @@ export const UserProvider = ({ children }) => {
       setLoggedIn(false);
 
       //Close connections
-      messageConnection.close();
-      usersConnection.close();
-      setMessageConnection((prevEvent) => false);
-      setUsersConnection((prevEvent) => false);
+      eventSource.close();
+      setEventSource(false);
 
       notyf.success(`User logged out successfully! `); //success message
     } catch (error) {
