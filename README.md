@@ -1,44 +1,70 @@
 # Chat room task
 
-### In the next exercise we will build a chat room Which will rely on [SSE](https://ably.com/topic/server-sent-events)
+### A chat room app Which rely on [SSE](https://ably.com/topic/server-sent-events)
 
-## Requirements:
+---
 
-### The chat room will allow several participants to talk to each other and with the help of SSE the messages will be transmitted from one user through the server and to all participants
+### Development -
 
-1. Create a **login screen** and a **chat screen**
-2. The **login screen** Will contain an entry form (asking only for username is the minimum requirement - look at the bonus section to see more options).
-3. The **chat screen** Will contain the chat.
-4. Use [React-router](https://reactrouter.com/docs/en/v6/getting-started/tutorial "Tutorial") to enable switching between **login screen** and **chat screen**
-5. After a user login, an event is sent to the server for initial connection and this message is published to all other participants.
-6. When a user disconnect the server will send a disconnection event that will inform all participants.
+#### Persistance - 🏆
 
-### Chat screen
+- All users are saved in MongoDB so you can connect to the same user several times.
+- All messages are saved in MongoDB so a user can see the history of the messages that happened while a user was logged out.
 
-1. divided to:
+#### Live - 👨‍💻👩‍💻
 
-- Text writing area.
-- Area of ​​previous messages (like chat on WhatsApp).
-- Updated list of participants (like zoom).
+- All logged in users will receive the message sent live.
+- When a user logs in or logs out all users except him will see a message about it in the chat.
 
-2. When a message is sent from one of the participants it will reach the server and be published live to all those users who are currently connected to the server
-3. When a participant enters or leaves the chat room (his connection to the server is terminated) the server will update the other participants with a message (as in WhatsApp)
-4. Messages coming from the server will be displayed in the designated area with the _time_ they were sent and the _name of the author_.
+#### Authentication - 🤷‍♀️🤷‍♂️
 
-### Login screen
+- Each user who logs in will receive an access-token 'expired within an hour and a refresh-token that he can use to restore the token within 24 hours of logging in, after which he will have to reconnect.
+- A valid token is required to: Send messages and receive information about users and messages from history.
 
-1. Create a form for user input
-2. The minimum requirement is to take a username, in the bonus section you can see more complex ways.
+#### Security - ⛔
+
+- Encrypted passwords
+- Offline user can not access chat room
+
+---
+
+### User Instructions -
+
+#### ✅📃 Register form -
+
+- The user will be saved and you can connect to it whenever you want.
+- You need to enter valid email, gender, strong password and valid username
+
+#### ✅🔓 Login form -
+
+- You can log in with a username and password.
+
+#### ✅💬 Chat room -
+
+**There is a nice design where**
+
+- All the connected users are listed on the right with pics by their gender
+- The call appears in the center - messages sent from you will appear on the right and in light blue and messages from other chat friends will appear in green on the left.
+- At the bottom you can write and send with the click of a button.
+
+---
+
+### Known bugs -
+
+- User disconnection and login The list of participants is not updated live.
+- When there is no movement for 4.5 seconds the connection is disconnected and renewed (EventSource thing ....)
+
+---
 
 ## Bonus:
 
-1. Use jwt To assign a token to a user.
+- [x] Use jwt To assign a token to a user.
+
 2. Create auth middleware and check the token before you allow the user to enter the chat room
 3. Use private route to redirect a user without a valid token.
 
-- It is more important to us at this point that you practice React, move on to the following bonuses only after you feel in control of React in this exercise.
+- [x] When a user enters a chat room he will get the message history of the room.
 
-4. When a user enters a chat room he will get the message history of the room.
 5. Clicking on a username sends a message only to it specifically
 6. Gray _V_ when the message successfully reached the server. 2 gray _V_ when the message reached all participants.
 7. Do only after all the other bonuses - create different rooms and option to be admin of a room.
