@@ -13,8 +13,8 @@ import { BASEURL } from '../App.js';
 
 export default function ChatRoom() {
   /***** STATES *****/
-  // const [messages, setMessages] = useState([]);
   const { userName, messages, onLineUsers } = useContext(UserContext);
+
   /***** FUNCTIONS *****/
   useCheckLoggedIn(); //Navigate to login page users that isn't loggedIn
   //

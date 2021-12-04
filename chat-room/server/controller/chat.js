@@ -1,5 +1,6 @@
 const Message = require('../models/Message');
 const Token = require('../models/Token');
+const moment = require('moment');
 
 const clients = [];
 
@@ -26,7 +27,7 @@ exports.sendMessage = async (req, res, next) => {
 // Get All Messages
 exports.getAllMessages = async (req, res, next) => {
   try {
-    const { userName } = req.params;
+    const { userName } = req.query;
 
     const messageList = await Message.find({});
     res.set({
@@ -60,7 +61,7 @@ function sendToAll(message) {
 // Get All Users
 exports.getAllUsers = async (req, res, next) => {
   try {
-    const { userName } = req.params;
+    const { userName } = req.query;
     // Get all connected users from tokens data
     const usersList = await Token.find({});
     res.set({
