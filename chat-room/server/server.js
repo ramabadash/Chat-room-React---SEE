@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 8080;
 
 const usersRouter = require('./routers/usersRouter.js');
 const chatRouter = require('./routers/chatRouter.js');
+const { errorHandlerMiddleware } = require('./Middlewares/errorHandler.js');
 
 /***** DB *****/
 const MONGO_URI = process.env.MONGO_URI;
@@ -29,5 +30,7 @@ app.use(cors());
 /***** ROUTERS *****/
 app.use('/users', usersRouter); // Register, Login, Logout
 app.use('/chat', chatRouter); // Send Message
+
+app.use(errorHandlerMiddleware);
 
 app.listen(PORT, () => console.log(`app listening at http://localhost:${PORT}`));
