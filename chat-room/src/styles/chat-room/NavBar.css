@@ -11,14 +11,13 @@
 
 .nav-bar li {
   float: left;
-  cursor: pointer;
   display: block;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
 
-.nav-bar li:hover {
+.nav-bar .logout-nav:hover {
   background-color: antiquewhite;
   color: rgb(10, 7, 54);
 }
@@ -32,4 +31,5 @@
 
 .nav-bar .logout-nav {
   float: right;
+  cursor: pointer;
 }
