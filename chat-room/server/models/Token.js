@@ -6,6 +6,11 @@ const TokenSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  userName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   AccessToken: {
     type: String,
     required: true,

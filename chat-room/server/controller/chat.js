@@ -1,6 +1,11 @@
 const Message = require('../models/Message');
+const Token = require('../models/Token');
+
 const clients = [];
 
+/***** FUNCTIONS ******/
+
+/***** MESSAGES ******/
 // Save message to DB
 exports.sendMessage = async (req, res, next) => {
   const { userName, content, timeStamp } = req.body;
@@ -50,3 +55,27 @@ exports.getAllMessages = async (req, res, next) => {
 function sendToAll(message) {
   clients.forEach((c) => c.res.write(`data: ${JSON.stringify(message)}\n\n`));
 }
+
+/***** USERS ******/
+// Get All Users
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const { userName } = req.params;
+    // Get all connected users from tokens data
+    const usersList = await Token.find({});
+    res.set({
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      Connection: 'keep-alive',
+
+      // enabling CORS
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+    });
+    res.write(`data: ${JSON.stringify(usersList)}\n\n`);
+
+    return sendToAll(`${userName} joined the chat!`); // Send message about user login to all
+  } catch (error) {
+    next(error);
+  }
+};

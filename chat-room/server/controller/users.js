@@ -49,7 +49,7 @@ exports.login = async (req, res, next) => {
     if (tokenUser) {
       await Token.findOneAndUpdate({ userId }, { $set: { AccessToken: accessToken, RefreshToken: refreshToken } });
     } else {
-      Token.create({ userId, AccessToken: accessToken, RefreshToken: refreshToken });
+      Token.create({ userId, userName, AccessToken: accessToken, RefreshToken: refreshToken });
     }
 
     res.send({ accessToken, refreshToken });
