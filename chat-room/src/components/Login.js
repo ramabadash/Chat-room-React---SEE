@@ -41,13 +41,13 @@ export default function Login() {
       <button
         id='login-btn'
         onClick={async () => {
-          const userName = userNameLoginInput.current.value;
-          const password = passwordLoginInput.current.value;
-          const answer = await login(userName, password);
-          if (answer) navigate('/home');
-          else {
+          try {
+            const userName = userNameLoginInput.current.value;
+            const password = passwordLoginInput.current.value;
+            const answer = await login(userName, password);
+            if (answer) navigate('/home');
+          } catch (error) {
             notyf.error(`Sorry, someThing went wrong. please try again!`); //error message
-            return;
           }
         }}
       >

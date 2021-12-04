@@ -21,6 +21,11 @@ export const UserProvider = ({ children }) => {
 
   // Create stream connection to get messages- on login
   useEffect(() => {
+    if (!loggedIn && messageConnection) {
+      messageConnection.close();
+      setMessageConnection(false);
+    }
+
     if (!messageConnection && loggedIn) {
       const messageEvents = new EventSourcePolyfill(`${BASEURL}/chat/get-all/?userName=${userName}`, {
         headers: {
@@ -72,7 +77,7 @@ export const UserProvider = ({ children }) => {
     try {
       // TODO ADD VALIDATION
       if (!userName || !password) {
-        throw new Error({ status: 400, message: 'Missing details' });
+        return notyf.error(`Sorry, Missing details. please try again!`); //error message
       }
       const response = await axios.post(`${BASEURL}/users/login`, {
         userName,
