@@ -1,6 +1,6 @@
-# Chat room task
+## <img src="./chat-room/src/images/logo.png" >
 
-### A chat room app Which rely on [SSE](https://ably.com/topic/server-sent-events)
+## Chat room task - A chat room app Which rely on [SSE](https://ably.com/topic/server-sent-events)
 
 ---
 
