@@ -1,9 +1,8 @@
 import React, { useRef, useContext, useEffect } from 'react';
 import moment from 'moment';
 import axios from 'axios';
-import '../../styles/chat-room/NavBar.css';
 import '../../styles/chat-room/ChatRoom.css';
-import logo from '../../images/logo.png';
+import NavBar from './NavBar';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
 import MemberList from './MemberList';
@@ -59,30 +58,7 @@ export default function ChatRoom() {
   return (
     <div>
       {/* NAV BAR */}
-      <ul className='nav-bar'>
-        <li>
-          <img className='logo' alt='logo' src={logo} />
-        </li>
-        <li className='logout-nav' onClick={logout}>
-          <i className='fas fa-sign-out-alt'></i> LogOut
-        </li>
-        <li className='user-nav'>
-          {`Hello ${userName}!  `}
-          <i className='far fa-user-circle'></i>
-        </li>
-        <li
-          className='switch-nav members'
-          onClick={(e) => {
-            //Switch btn content
-            e.target.classList.toggle('members');
-            e.target.classList.toggle('chat');
-            //Switch between chat and members screen
-            membersArea.current.classList.toggle('show');
-            chatArea.current.classList.toggle('show');
-          }}
-        ></li>
-      </ul>
-
+      <NavBar membersArea={membersArea} chatArea={chatArea} />
       {/* GENERAL SCREEN */}
       <div className='chat-room'>
         <div className='messages-list show' ref={chatArea}>
