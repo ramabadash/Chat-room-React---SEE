@@ -9,7 +9,7 @@ export default function MessagesList({ chatData, messagesRef }) {
         message.userName ? (
           <Message message={message.content} author={message.userName} time={message.timeStamp} key={index} /> //user message
         ) : (
-          <Message message={message} key={index} typeClass='joined' /> //User joined the chat message
+          <Message message={message} key={index} typeClass='joined' /> //User joined / left the chat message
         )
       )}
     </ul>

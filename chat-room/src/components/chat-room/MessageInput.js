@@ -5,7 +5,6 @@ export default function MessageInput({ sendMessage }) {
   /***** REFS *****/
   const contentInput = useRef(null);
 
-  // Add send functionality - enter
   return (
     <div className='send-message'>
       <input ref={contentInput} className='message-input' type='text' placeholder='Write your message..' />
@@ -14,6 +13,12 @@ export default function MessageInput({ sendMessage }) {
         onClick={() => {
           sendMessage(contentInput.current.value);
           contentInput.current.value = '';
+        }}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            sendMessage(contentInput.current.value);
+            contentInput.current.value = '';
+          }
         }}
       >
         send

@@ -56,19 +56,19 @@ export default function Register() {
       <button
         id='login-btn'
         onClick={async () => {
-          const userName = userNameInput.current.value;
-          const password = passwordInput.current.value;
-          const email = emailInput.current.value;
-          const gender = genderInput.current.value;
-          const answer = await register(userName, password, email, gender);
-          if (answer === 'Registered') navigate('/');
-          else {
+          try {
+            const userName = userNameInput.current.value;
+            const password = passwordInput.current.value;
+            const email = emailInput.current.value;
+            const gender = genderInput.current.value;
+            const answer = await register(userName, password, email, gender);
+            if (answer === 'Registered') navigate('/');
+          } catch (error) {
             notyf.error(`Sorry, someThing went wrong. please try again!`); //error message
-            return;
           }
         }}
       >
-        Register!
+        REGISTER!
       </button>
       <hr />
       <Link to={'/'}>

@@ -21,7 +21,7 @@ export default function ChatRoom() {
   const { userName, messages, onLineUsers, logout, accessToken } = useContext(UserContext);
 
   /***** FUNCTIONS *****/
-  //
+  //Scroll down the massages list on new massages
   useEffect(() => {
     if (messageEl !== null) {
       messageEl.current.addEventListener('DOMNodeInserted', (event) => {
@@ -32,7 +32,7 @@ export default function ChatRoom() {
   }, []);
   //Navigate to login page users that isn't loggedIn
   useCheckLoggedIn();
-  //
+  //Send message to server
   const sendMessage = async (content) => {
     try {
       const response = await axios.post(
@@ -56,7 +56,7 @@ export default function ChatRoom() {
 
   return (
     <div>
-      {/* NAV BAR - TODO NAVBAR COMPONENT */}
+      {/* NAV BAR */}
       <ul className='nav-bar'>
         <li>
           <img className='logo' alt='logo' src={logo} />
@@ -65,16 +65,19 @@ export default function ChatRoom() {
           <i className='fas fa-sign-out-alt'></i> LogOut
         </li>
       </ul>
+
       {/* GENERAL SCREEN */}
       <div className='chat-room'>
         <div className='messages-list'>
-          <MessagesList chatData={messages} messagesRef={messageEl} />
+          <MessagesList chatData={messages} messagesRef={messageEl} /> {/* MESSAGES */}
         </div>
+
         <div className='message-input'>
-          <MessageInput sendMessage={sendMessage} />
+          <MessageInput sendMessage={sendMessage} /> {/* TYPE INPUT */}
         </div>
+
         <div className='members-list'>
-          <MemberList chatData={onLineUsers} />
+          <MemberList chatData={onLineUsers} /> {/* CHAT ONLINE MEMBERS */}
         </div>
       </div>
     </div>

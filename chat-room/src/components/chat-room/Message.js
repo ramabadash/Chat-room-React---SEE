@@ -11,7 +11,6 @@ export default function Message({ message, author, time, typeClass }) {
         <span className={`${typeClass ? '' : 'status green'}`}></span>
         <h2>{author}</h2> <h3>{time}</h3>
       </div>
-      {/* <div className='triangle'></div> */}
       <div className='message'>{message}</div>
     </li>
   );

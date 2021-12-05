@@ -42,7 +42,6 @@ export const UserProvider = ({ children }) => {
         console.log('data', data);
         setMessages((prevMessages) => {
           const messages = JSON.parse(data).messageList;
-          console.log('messages', messages);
           return Array.isArray(messages) ? messages : [...prevMessages, messages];
         });
         setOnLineUsers((prevUsers) => {
@@ -56,7 +55,6 @@ export const UserProvider = ({ children }) => {
   // Send login form
   const login = async (userName, password) => {
     try {
-      // TODO ADD VALIDATION
       if (!userName || !password) {
         return notyf.error(`Sorry, Missing details. please try again!`); //error message
       }
@@ -78,7 +76,6 @@ export const UserProvider = ({ children }) => {
   // Send register form
   const register = async (userName, password, email, gender) => {
     try {
-      // TODO ADD VALIDATION
       if (!userName || !password || !email) {
         return notyf.error(`Sorry, Missing details. please try again!`); //error message
       }
