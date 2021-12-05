@@ -46,6 +46,7 @@
 - All the connected users are listed on the right with pics by their gender
 - The call appears in the center - messages sent from you will appear on the right and in light blue and messages from other chat friends will appear in green on the left.
 - At the bottom you can write and send with the click of a button.
+- Fit to your phone! 📲
 
 ---
 
