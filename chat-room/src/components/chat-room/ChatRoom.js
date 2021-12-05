@@ -16,6 +16,8 @@ const notyf = new Notyf();
 export default function ChatRoom() {
   /***** REFS *****/
   const messageEl = useRef(null);
+  const chatArea = useRef(null);
+  const membersArea = useRef(null);
 
   /***** STATES *****/
   const { userName, messages, onLineUsers, logout, accessToken } = useContext(UserContext);
@@ -64,11 +66,26 @@ export default function ChatRoom() {
         <li className='logout-nav' onClick={logout}>
           <i className='fas fa-sign-out-alt'></i> LogOut
         </li>
+        <li className='user-nav'>
+          {`Hello ${userName}!  `}
+          <i className='far fa-user-circle'></i>
+        </li>
+        <li
+          className='switch-nav members'
+          onClick={(e) => {
+            //Switch btn content
+            e.target.classList.toggle('members');
+            e.target.classList.toggle('chat');
+            //Switch between chat and members screen
+            membersArea.current.classList.toggle('show');
+            chatArea.current.classList.toggle('show');
+          }}
+        ></li>
       </ul>
 
       {/* GENERAL SCREEN */}
       <div className='chat-room'>
-        <div className='messages-list'>
+        <div className='messages-list show' ref={chatArea}>
           <MessagesList chatData={messages} messagesRef={messageEl} /> {/* MESSAGES */}
         </div>
 
@@ -76,7 +93,7 @@ export default function ChatRoom() {
           <MessageInput sendMessage={sendMessage} /> {/* TYPE INPUT */}
         </div>
 
-        <div className='members-list'>
+        <div className='members-list' ref={membersArea}>
           <MemberList chatData={onLineUsers} /> {/* CHAT ONLINE MEMBERS */}
         </div>
       </div>

@@ -28,8 +28,54 @@
   align-self: center;
   float: left;
 }
+.nav-bar .user-nav {
+  font-weight: bold;
+  font-size: 1.5em;
+  float: right;
+}
 
 .nav-bar .logout-nav {
+  font-size: 1.5em;
   float: right;
   cursor: pointer;
+}
+
+.switch-nav {
+  display: none;
+}
+
+@media screen and (max-width: 992px) {
+  .logo {
+    margin: auto;
+    width: 15em;
+    align-self: center;
+    float: left;
+  }
+  .nav-bar .user-nav {
+    font-weight: bold;
+    font-size: 1em;
+    float: right;
+  }
+
+  .nav-bar .logout-nav {
+    font-size: 1em;
+    float: right;
+    cursor: pointer;
+  }
+  .members:before {
+    font-family: 'Font Awesome 5 Free';
+    font-size: 1.3em;
+    content: '\f007';
+  }
+  .chat:before {
+    font-family: 'Font Awesome 5 Free';
+    font-size: 1.3em;
+    color: antiquewhite;
+    content: '\f075';
+  }
+  .members:hover,
+  .chat:hover {
+    background-color: antiquewhite;
+    color: rgb(10, 7, 54);
+  }
 }

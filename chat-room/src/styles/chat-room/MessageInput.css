@@ -15,6 +15,7 @@
   color: #222;
   /* background-color: antiquewhite; */
   font-family: 'Didact Gothic';
+  resize: none;
 }
 
 .send-btn {
